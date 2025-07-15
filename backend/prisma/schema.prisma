@@ -9,7 +9,20 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider   = "postgresql"
+
+  // PgBouncer pooled connection for app queries
+  url        = "postgresql://postgres.ltvoswczotsnzglnhfck:[QJU1Mo3lzp1yk4sh]@aws-0-us-east-2.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+  // Direct connection for migrations and schema sync
+  directUrl  = "postgresql://postgres.ltvoswczotsnzglnhfck:[QJU1Mo3lzp1yk4sh]@aws-0-us-east-2.pooler.supabase.com:5432/postgres"
 }
+model Todo {
+  id Int @id @default(autoincrement())
+  name String
+  completed Boolean
+  description String
+  userId String
+}
+
+//QJU1Mo3lzp1yk4sh
